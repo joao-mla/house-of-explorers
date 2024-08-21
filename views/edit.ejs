@@ -1,0 +1,33 @@
+<%- include("partials/header.ejs") %>
+
+<div class="container">
+
+    <% if (locals.post) {%>
+    <% } %>
+    <div class="py-5 text-center">
+        <h2>Edit Post</h2>
+    </div>
+
+    <div class="row g-5 mb-5">
+        <form action="/<%= post._id %>/submit" method="POST">
+            <div>
+                <label for="title" class="form-label">Title</label>
+                <input type="text" class="form-control" id="title" name="title" placeholder="" value=<%= post.title %> required="">
+                <div class="invalid-feedback">
+                    
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="textArea">Body</label>
+                <textarea class="form-control" id="textArea" name="textArea" rows="30"><%= post.text %></textarea>
+            </div>
+            
+            <hr class="my-4">
+
+            <button class="w-100 btn btn-secondary btn-lg" type="submit">Submit</button>
+        </form>
+    </div>
+</div>
+
+<%- include("partials/footer.ejs") %>

@@ -1,0 +1,47 @@
+<%- include("partials/header.ejs") %>
+
+<% if (!locals.loggedIn) { %>
+    <div class="px-4 pt-5 my-5 text-center border-bottom">
+        <h1 class="display-4 fw-bold text-body-emphasis">Join a blog with a great spirit of community!</h1>
+        <div class="col-lg-6 mx-auto">
+            <p class="lead mb-4">Talk to others about your travelling experiences, access worldwide travelling news, explore new places, and plan your next adventures!</p>
+            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mb-5">
+                <a href="/sign-up">
+                    <button type="button" class="btn btn-primary btn-lg px-4 me-sm-3">
+                        Sign up now!
+                    </button>
+                </a>
+            </div>
+        </div>
+    </div>
+<% } %>
+
+<div class="container">
+    <% locals.posts.forEach(post => { %>
+        <article class="blog-post mb-5">
+            <h2 class="display-5 link-body-emphasis mb-1">
+                <%= post.title %>
+            </h2>
+            <p>
+                <%- post.text.replaceAll("\n", "<br>") %>
+            </p>
+            <p class="mt-1">
+                <%= Intl.DateTimeFormat('en-GB', { year: 'numeric', month: 'long', day: '2-digit', hour: 'numeric', minute: 'numeric', second: 'numeric'}).format(post.date) %>
+            </p>
+            <div class="row text-left">
+                <form action="/edit/<%= post._id %>" method="POST" class="col-1">
+                    <input type="submit" class="btn btn-secondary" value="Edit">
+                </form>
+                <form action="/delete/<%= post._id %>" method="POST" class="col px-4">
+                    <button type="submit" class="btn btn-secondary me-sm-3" value="">
+                        <i class="bi bi-trash"></i>
+                    </button>
+                </form>
+            </div>
+            
+        </article>
+    <% }); %>
+</div>
+
+
+<%- include("partials/footer.ejs") %>
